@@ -6,6 +6,7 @@ class ImageHistory(models.Model):
     date_created = models.DateTimeField(auto_now=True)
     is_converted = models.BooleanField(default=False)
     converted_text=models.TextField(null=True)
+    # boxed_image=models.ImageField(max_length=9999,upload_to="media/boxed_images",null=True)
 
     def __str__(self):
         return self.name
