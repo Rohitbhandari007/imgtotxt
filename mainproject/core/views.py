@@ -25,7 +25,9 @@ class ImageToTextApi(APIView):
         instance = serializer.save()
         saved_id = instance.id
         process = ConvertTextToImage()
-        result = process.get_text_from_image(request,saved_id)
-        return Response(serializer.data)
-
+        result=process.get_text_from_image(request,saved_id)
+        box=process.get_box_from_image(request,saved_id)
+        print(result)
+        print(box)
+        return Response({"data":serializer.data,"text":result,"boxedimage":box})
 

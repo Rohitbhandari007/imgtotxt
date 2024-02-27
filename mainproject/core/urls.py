@@ -3,5 +3,5 @@ from .views import *
 
 urlpatterns = [
     path('', index),
-    path('convert', ImageToTextApi.as_view(),name="convert")
+    path('convert', ImageToTextApi.as_view(),name="convert"),
 ]
