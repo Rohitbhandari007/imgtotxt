@@ -26,6 +26,9 @@ class ImageToTextApi(APIView):
         saved_id = instance.id
         process = ConvertTextToImage()
         result = process.get_text_from_image(request,saved_id)
-        return Response(serializer.data)
+        if result is not None:
+            return Response(serializer.data)
+        else:
+            return Response("Something went wrong")
 
 
