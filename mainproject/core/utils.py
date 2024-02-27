@@ -5,7 +5,6 @@ import requests
 from io import BytesIO
 # from io import Bytes
 import matplotlib.pyplot as plt
-import cv2
 import numpy as np
 
 
@@ -25,39 +24,6 @@ class ConvertTextToImage:
             clean_text=self.format_text(text)
             self.save_image(imageObj, clean_text)
             return text
-        except Exception as e:
-            return e
-
-    def get_box_from_image(self,request,id):
-        imageObj = ImageHistory.objects.get(id=id)
-        domain = f"{request.scheme}://{request.META['HTTP_HOST']}"
-
-        image_url = domain+imageObj.image.url
-        response = requests.get(image_url)
-        response.raise_for_status()
-        try:
-            image = Image.open(BytesIO(response.content))
-            
-            gray_img=image.convert('L')
-            np_img=np.array(gray_img)
-            # plot the image
-            
-            boxes_data = pytesseract.image_to_boxes(image) 
-            plt.figure(figsize=(10,10))
-            plt.imshow(np_img)       
-            for box in boxes_data.splitlines():
-                  box = box.split()
-                  x, y, w, h = int(box[1]), int(box[2]), int(box[3]), int(box[4])
-                  cv2.rectangle(np_img, (x, np_img.shape[0] - y), (w, np_img.shape[0] - h), (0, 255, 0), 2)
-
-            plt.imshow(np_img)
-            plt.axis('off')
-            print("---------ploting---------")
-            plt.show()
-            plt.savefig('boxed.jpg');
-   
-            self.save_image(imageObj, boxes_data)
-            return boxes_data
         except Exception as e:
             return e
 
