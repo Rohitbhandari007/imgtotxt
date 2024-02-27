@@ -16,7 +16,14 @@ class ImageToTextApi(APIView):
     def get(self, request):
         queryset = self.model.objects.all()
         serizlier = self.serializer_class(queryset, many=True)
+        history_id = request.query_params.get('history_id')
+        if history_id:
+            history_obj=self.model.objects.get(id=history_id)
+            serizlier = self.serializer_class(history_obj)
+            return Response({"data":serizlier.data})
         return Response(serizlier.data)
+    
+    
     
 
     def post(self, request):
