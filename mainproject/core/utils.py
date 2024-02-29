@@ -30,14 +30,11 @@ class ConvertTextToImage:
     def format_text(self, text):
         # Split the text into paragraphs
         formatted_text = [p.strip() for p in text.strip().split('\n\n')]
-        
         # Join the paragraphs into a single string
         joined_text = ' '.join(formatted_text)
-        
         # Split the joined text by commas and remove leading/trailing whitespace
         cleaned_list = [item.strip() for item in joined_text.split(',')]
-        
-        
+
         return cleaned_list
 
     
