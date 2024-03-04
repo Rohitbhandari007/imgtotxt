@@ -1,13 +1,11 @@
 from .models import ImageHistory
 from PIL import Image
-import pytesseract
 import requests
 from io import BytesIO
 # from io import Bytes
 import matplotlib.pyplot as plt
 import numpy as np
-
-
+from .trained_model.script import useModal
 
 class ConvertTextToImage:
 
@@ -17,10 +15,11 @@ class ConvertTextToImage:
 
         image_url = domain+imageObj.image.url
         response = requests.get(image_url)
+        
         response.raise_for_status()
         try:
             image = Image.open(BytesIO(response.content))
-            text = pytesseract.image_to_string(image)           
+            text = useModal(image)        
             clean_text=self.format_text(text)
             self.save_image(imageObj, clean_text)
             return text
@@ -42,3 +41,33 @@ class ConvertTextToImage:
         imageObj.converted_text = clean_text
         imageObj.is_converted= True
         imageObj.save()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
+   
