@@ -61,13 +61,5 @@ class ConvertTextToImage:
 
 
 
-
-
-
-
-
-
-
-
            
    
